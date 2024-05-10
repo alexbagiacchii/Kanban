@@ -68,7 +68,7 @@
             <button>Cerca</button>
         </div>
         <?php
-        $connection = @mysqli_connect("10.1.0.52", "5i1", "5i1", "5i1_dylanbagiacchi");
+        $connection = @mysqli_connect("10.1.0.52", "5i1", "5i1", "5i1_bagiacchidylan");
         if (!$connection) {
             die("Connessione al database fallita: " . mysqli_connect_error());
         }
