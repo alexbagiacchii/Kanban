@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input id="user" type="text" placeholder="User...">
+    <button></button>
+</body>
+    <script>
+        async function carica(){
+            let user = document.getElementById("user").value;
+            let url = "utente.php?user='" + user + "'";
+            console.log("url: " + url);
+            let risposta = await fetch(url);
+            if(risposta.ok){
+                let dati = await risposta.json;
+                console.log(dati);
+            }
+        }
+    </script>
+</html>

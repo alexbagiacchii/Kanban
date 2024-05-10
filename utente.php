@@ -6,7 +6,7 @@
     if(!$conn){
         die("Failed to connect to db!");
     }
-    $query = "select id, nomeTask, descrizione, tipoTask, dataInizio from task, utente, modifica where task.id = modifica.fk_task and modifica.fk_utente = utente.nomeUtente and utente.nomeUtente = '$user'";
+    $query = "select id, titolo, task.descrizione, data_inizio, priorita from task, utenti, modifica where task.id = modifica.fk_id and modifica.fk_username = utenti.username and utenti.username = '$user'";
     $result = mysqli_query($conn, $query);
     $array = Array();
     while($row=mysqli_fetch_assoc($result)){

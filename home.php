@@ -85,25 +85,38 @@
             echo "<table border='1'>
             <tr>
                 <th>ID</th>
-                <th>Nome</th>
-                <th>Tipo</th>
-                <th>Inizio</th>
+                <th>Titolo</th>
                 <th>Descrizione</th>
+                <th>Inizio</th>
+                <th>Priorità</th>
             </tr>";
             while ($row = mysqli_fetch_assoc($risultatoTask)) {
                 echo "<tr>
                 <td>" . $row["id"] . "</td>
-                <td>" . $row["nomeTask"] . "</td>
-                <td>" . $row["tipoTask"] . "</td>
-                <td>" . $row["dataInizio"] . "</td>
+                <td>" . $row["titolo"] . "</td>
                 <td>" . $row["descrizione"] . "</td>
+                <td>" . $row["data_inizio"] . "</td>
+                <td>" . $row["priorita"] . "</td>
               </tr>";
             }
             echo "</table>";
         } else {
             echo "Errore: nessun dato esistente nel DB.";
         }
+
+        //Inserisci TASK
         ?>
+        <form action="inserimento/nuovaTask.php" method="post">
+            <h3>Inserisci task</h3>
+            <p>Titolo:</p><input type="text" name="titolo" required>
+            <p>Descrizione:</p><input type="text" name="descrizione" required>
+            <p>Data:</p><input type="datetime-local" name="dataInizio" required>
+            <p>Priorità:</p><select name='priorita'>
+                <option value="Bassa">Bassa</option>
+                <option value="Intermedia">Intermedia</option>
+                <option value="Alta">Alta</option>
+                <input type="submit" value="Inserisci">
+        </form>
         <script>
             async function leggi() {
                 let url = ("url");
@@ -113,6 +126,5 @@
                 }
             }
         </script>
-
 
 </html>
