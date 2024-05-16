@@ -8,19 +8,19 @@ if (!$connection) {
     die("Connessione al database fallita: " . mysqli_connect_error());
 }
 
-// Ottenere il nome utente dalla richiesta GET
-$username = $_GET['username'];
+// Query per ottenere l'elenco delle attività
+$queryTask = "SELECT * FROM task";
+$risultatoTask = mysqli_query($connection, $queryTask);
 
-// Query per controllare se l'utente esiste
-$controlloUtente = "SELECT * FROM utenti WHERE username = '$username'";
-$risultatoUtente = mysqli_query($connection, $controlloUtente);
-
-// Verifica se l'utente esiste e restituisci una risposta JSON
-if (mysqli_num_rows($risultatoUtente) > 0) {
-    // L'utente esiste
-    echo json_encode(array("userExists" => true));
-} else {
-    // L'utente non esiste
-    echo json_encode(array("userExists" => false));
+// Verifica se ci sono attività e restituisci una risposta JSON
+if (!$risultatoTask) {
+    die("Errore: impossibile caricare le informazioni richieste: " . mysqli_error($connection));
 }
+
+$tasks = array();
+while ($row = mysqli_fetch_assoc($risultatoTask)) {
+    $tasks[] = $row;
+}
+
+echo json_encode($tasks);
 ?>

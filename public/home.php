@@ -1,91 +1,141 @@
-<?php
-session_start();
-
-// Controllo se l'utente è autenticato
-if (!isset($_SESSION["autenticato"]) || $_SESSION["autenticato"] !== true) {
-    header("Location: login.php"); // Reindirizzo alla pagina di accesso se l'utente non è autenticato
-    exit();
-}
-
-require_once '../private/config.php';
-$connection = @mysqli_connect(host, username, password, db_name);
-if (!$connection) {
-    die("Connessione al database fallita: " . mysqli_connect_error());
-}
-
-// Elenco task
-$queryTask = "SELECT * FROM task";
-$risultatoTask = mysqli_query($connection, $queryTask);
-if (!$risultatoTask) {
-    die("Errore: impossibile caricare le informazioni richieste: " . mysqli_error($connection));
-}
-?>
 <!DOCTYPE html>
-<html lang="en">
+<!-- Website - www.codingnepalweb.com -->
+<html lang="en" dir="ltr">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kanban</title>
+  <meta charset="UTF-8" />
+  <title>KanBoard - Home</title>
+  <link rel="stylesheet" href="home.css" />
+  <!-- Boxicons CDN Link -->
+  <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
 <body>
-    <div id="container">
-        <a href='../private/logout.php'>Logout</a>
-        <h1>KANBAN - to do list</h1>
-        <div id="buttons">
-            <button>Aggiungi</button>
-            <button>Utenti</button>
-            <button>Storico</button>
-            <button>Cerca</button>
-        </div>
-        <?php
-        if (mysqli_num_rows($risultatoTask) > 0) {
-            echo "<h1>Elenco Task:</h1>";
-            echo "<table border='1'>
-            <tr>
-                <th>ID</th>
-                <th>Titolo</th>
-                <th>Descrizione</th>
-                <th>Inizio</th>
-                <th>Priorità</th>
-            </tr>";
-            while ($row = mysqli_fetch_assoc($risultatoTask)) {
-                echo "<tr>
-                <td>" . $row["id"] . "</td>
-                <td>" . $row["titolo"] . "</td>
-                <td>" . $row["descrizione"] . "</td>
-                <td>" . $row["data_inizio"] . "</td>
-                <td>" . $row["priorita"] . "</td>
-              </tr>";
-            }
-            echo "</table>";
-        } else {
-            echo "Errore: nessun dato esistente nel DB.";
-        }
-        ?>
-        <form action="inserimento/nuovaTask.php" method="post">
-            <h3>Inserisci task</h3>
-            <p>Titolo:</p><input type="text" name="titolo" required>
-            <p>Descrizione:</p><input type="text" name="descrizione" required>
-            <p>Data:</p><input type="datetime-local" name="dataInizio" required>
-            <p>Priorità:</p><select name='priorita'>
-                <option value="Bassa">Bassa</option>
-                <option value="Intermedia">Intermedia</option>
-                <option value="Alta">Alta</option>
-            </select>
-            <input type="submit" value="Inserisci">
-        </form>
-        <script>
-            async function leggi() {
-                let url = ("url");
-                let risposta = await fetch(url);
-                if (risposta.ok) {
-                    let dati = await risposta.json();
-                }
-            }
-        </script>
+  <?php
+  session_start();
+  // Controlla se l'utente è autenticato
+  if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
+    $username = $_COOKIE['username'];
+
+  } else {
+    header("Location: login.php");
+    exit;
+  }
+
+  ?>
+  <div class="sidebar">
+    <div class="logo-details">
+      <div class="logo_name">KanBoard</div>
+      <i class="bx bx-menu" id="btn"></i>
     </div>
+    <ul class="nav-list">
+      <li>
+        <a href="#">
+          <i class="bx bx-grid-alt"></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+        <span class="tooltip">Dashboard</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class="bx bx-user"></i>
+          <span class="links_name">Utenti</span>
+        </a>
+        <span class="tooltip">User</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class="bx bx-calendar-plus"></i>
+          <span class="links_name">Aggiungi</span>
+        </a>
+        <span class="tooltip">Messages</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class="bx bx-calendar-minus"></i>
+          <span class="links_name">Elimina</span>
+        </a>
+        <span class="tooltip">Analytics</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class="bx bx-data"></i>
+          <span class="links_name">Elenco attività</span>
+        </a>
+        <span class="tooltip">Files</span>
+      </li>
+      <li class="profile">
+        <div class="profile-details">
+          <img src="img/avatar.svg" alt="profileImg" />
+          <div class="name_job">
+            <div class="name"> <span><?php echo $username; ?></span></div>
+            <div class="job"></div>
+          </div>
+        </div>
+        <a href="../private/logout.php" id="log_out">
+          <i class="bx bx-log-out" id="log_out"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <section class="home-section">
+      <div class="text">Dashboard</div>
+      <div class="container">
+           <section class="dashboard">
+        <div id="todo" class="tab">
+          <h2>To-Do</h2>
+          <div id="todoTasks" class="tasks"></div>
+        </div>
+        <div id="doing" class="tab">
+          <h2>Doing</h2>
+          <div id="doingTasks" class="tasks"></div>
+        </div>
+        <div id="done" class="tab">
+          <h2>Done</h2>
+          <div id="doneTasks" class="tasks"></div>
+        </div>
+        <div id="archived" class="tab">
+          <h2>Archived</h2>
+          <div id="archivedTasks" class="tasks"></div>
+        </div>
+      </div>
+
+      <script>
+        async function carica() {
+          try {
+            await Promise.all([
+              fetchAndPopulate('to_do.php', 'todoTasks'),
+              fetchAndPopulate('doing.php', 'doingTasks'),
+              fetchAndPopulate('done.php', 'doneTasks'),
+              fetchAndPopulate('archived.php', 'archivedTasks')
+            ]);
+          } catch (error) {
+            console.error(error);
+          }
+        }
+
+        async function fetchAndPopulate(script, targetId) {
+          const response = await fetch("../private/home/stato/" + script);
+          if (!response.ok) {
+            throw new Error('Errore durante il recupero delle task');
+          }
+          const tasks = await response.json();
+          const targetElement = document.getElementById(targetId);
+          tasks.forEach(task => {
+            const taskElement = document.createElement('div');
+            taskElement.classList.add('task');
+            taskElement.textContent = task.titolo;
+            targetElement.appendChild(taskElement);
+          });
+        }
+
+        window.onload = carica;
+      </script>
+    </section>
+  </section>
+
+  <script src="../private/home.js"></script>
 </body>
 
 </html>

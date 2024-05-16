@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $username = $_POST["username"];
         $password = $_POST["password"];
+        $ruolo = $_POST["ruolo"];
 
         $connection = mysqli_connect(host, username, password, db_name);
         if (!$connection) {
@@ -24,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (mysqli_num_rows($risultatoUtente) == 0) {
             echo "<b>Errore:</b> Nessun utente esistente con questo username: <b>" . $username . "</b>";
         } else {
-            $login = "SELECT username, password FROM utenti WHERE username = '$username' AND password = '$password'";
+            $login = "SELECT username, password, ruolo FROM utenti WHERE username = '$username' AND password = '$password'";
             $risultatoLogin = mysqli_query($connection, $login);
 
             if (!$risultatoLogin) {
@@ -32,11 +33,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
             if (mysqli_num_rows($risultatoLogin) > 0) {
+                $utente = mysqli_fetch_assoc($risultatoLogin); // Ottieni i dettagli dell'utente
                 $_SESSION["autenticato"] = true;
                 $expiry = time() + 3600;
                 setcookie("username", $username, $expiry, "/");
+                setcookie("ruolo", $utente['ruolo'], $expiry, "/"); // Imposta il cookie del ruolo
+
                 header("Location: ../public/home.php");
                 exit();
+
             } else {
                 echo "Credenziali errate. Riprova.";
             }
