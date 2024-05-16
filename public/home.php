@@ -1,3 +1,25 @@
+<?php
+session_start();
+
+// Controllo se l'utente è autenticato
+if (!isset($_SESSION["autenticato"]) || $_SESSION["autenticato"] !== true) {
+    header("Location: login.php"); // Reindirizzo alla pagina di accesso se l'utente non è autenticato
+    exit();
+}
+
+require_once '../private/config.php';
+$connection = @mysqli_connect(host, username, password, db_name);
+if (!$connection) {
+    die("Connessione al database fallita: " . mysqli_connect_error());
+}
+
+// Elenco task
+$queryTask = "SELECT * FROM task";
+$risultatoTask = mysqli_query($connection, $queryTask);
+if (!$risultatoTask) {
+    die("Errore: impossibile caricare le informazioni richieste: " . mysqli_error($connection));
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,11 +27,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kanban</title>
-
 </head>
 
 <body>
     <div id="container">
+        <a href='../private/logout.php'>Logout</a>
         <h1>KANBAN - to do list</h1>
         <div id="buttons">
             <button>Aggiungi</button>
@@ -18,19 +40,6 @@
             <button>Cerca</button>
         </div>
         <?php
-        require_once '../private/config.php';
-        $connection = @mysqli_connect(host, username, password, db_name);
-        if (!$connection) {
-            die("Connessione al database fallita: " . mysqli_connect_error());
-        }
-
-        //Elenco task
-        $queryTask = "SELECT * FROM task";
-        $risultatoTask = mysqli_query($connection, $queryTask);
-        if (!$risultatoTask) {
-            die("Errore: impossibile caricare le informazioni richieste: " . mysqli_error($conn));
-        }
-
         if (mysqli_num_rows($risultatoTask) > 0) {
             echo "<h1>Elenco Task:</h1>";
             echo "<table border='1'>
@@ -54,8 +63,6 @@
         } else {
             echo "Errore: nessun dato esistente nel DB.";
         }
-
-        //Inserisci TASK
         ?>
         <form action="inserimento/nuovaTask.php" method="post">
             <h3>Inserisci task</h3>
@@ -66,7 +73,8 @@
                 <option value="Bassa">Bassa</option>
                 <option value="Intermedia">Intermedia</option>
                 <option value="Alta">Alta</option>
-                <input type="submit" value="Inserisci">
+            </select>
+            <input type="submit" value="Inserisci">
         </form>
         <script>
             async function leggi() {
@@ -77,5 +85,7 @@
                 }
             }
         </script>
+    </div>
+</body>
 
 </html>

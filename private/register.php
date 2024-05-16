@@ -18,13 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (mysqli_num_rows($risultatoDuplicati) > 0) {
         while ($row = mysqli_fetch_assoc($risultatoDuplicati)) {
-            echo "<b>Errore:</b> Impossibile completare la registrazione, nome utente già presente nel DB: <b>" . $username . "</b>";
+            echo "<b>Errore:</b> Impossibile completare la registrazione, il nome utente è già presente nel DB: <b>" . $username . "</b>";
         }
     } else {
-        $registraUtente = "INSERT INTO utenti (username, nome, cognome, password) VALUES ('$username', '$nome', '$cognome', '$password')";
+        $registraUtente = "INSERT INTO utenti (username, nome, cognome, password, ruolo) VALUES ('$username', '$nome', '$cognome', '$password', 'user')";
 
         if (mysqli_query($connection, $registraUtente)) {
-            echo "Registrazione effettuata con successo.";
+            echo "Registrazione effettuata con successo. <a href='../public/login.html'>Accedi</a>";
         } else {
             echo "Errore durante la registrazione: " .mysqli_error($connection);
         }
