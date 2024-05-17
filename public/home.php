@@ -1,20 +1,18 @@
 <!DOCTYPE html>
-<!-- Website - www.codingnepalweb.com -->
-<html lang="en" dir="ltr">
 
 <head>
   <meta charset="UTF-8" />
   <title>KanBoard - Home</title>
   <link rel="stylesheet" href="home.css" />
-  <!-- Boxicons CDN Link -->
   <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="img/logo.png">
+
 </head>
 
 <body>
   <?php
   session_start();
-  // Controlla se l'utente è autenticato
   if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
     $username = $_COOKIE['username'];
 
@@ -31,39 +29,34 @@
     </div>
     <ul class="nav-list">
       <li>
-        <a href="#">
+        <a href="home.php">
           <i class="bx bx-grid-alt"></i>
           <span class="links_name">Dashboard</span>
         </a>
-        <span class="tooltip">Dashboard</span>
       </li>
       <li>
-        <a href="#">
+        <a href="dashboard/utenti.php">
           <i class="bx bx-user"></i>
           <span class="links_name">Utenti</span>
         </a>
-        <span class="tooltip">User</span>
       </li>
       <li>
-        <a href="#">
+        <a href="dashboard/aggiungi.php">
           <i class="bx bx-calendar-plus"></i>
           <span class="links_name">Aggiungi</span>
         </a>
-        <span class="tooltip">Messages</span>
       </li>
       <li>
-        <a href="#">
+        <a href="dashboard/elimina.php">
           <i class="bx bx-calendar-minus"></i>
           <span class="links_name">Elimina</span>
         </a>
-        <span class="tooltip">Analytics</span>
       </li>
       <li>
         <a href="#">
           <i class="bx bx-data"></i>
           <span class="links_name">Elenco attività</span>
         </a>
-        <span class="tooltip">Files</span>
       </li>
       <li class="profile">
         <div class="profile-details">
@@ -133,8 +126,6 @@
         window.onload = carica;
       </script>
     </section>
-  </section>
-
   <script src="../private/home.js"></script>
 </body>
 

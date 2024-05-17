@@ -1,15 +1,15 @@
 <?php
-define('host', 'localhost');
-define('db_name', 'kanban');
-define('username', 'root');
-define('password', '');
+define('host', '10.1.0.52');
+define('db_name', '5i1_dylanbagiacchi');
+define('username', '5i1');
+define('password', '5i1');
 ?>
 
 <?php
 /*
-define('host', '10.1.0.52');
-define('db_name', '5i1_bagiacchidylan');
-define('user', '5i1');
-define('password', '5i1');
+define('host', 'localhost');
+define('db_name', 'kanban');
+define('username', 'root');
+define('password', '');
 */
 ?>
