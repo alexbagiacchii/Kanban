@@ -7,7 +7,7 @@ if (!$connection) {
     die();
 }
 
-$query = "SELECT * FROM task, modifica, utenti, stato WHERE modifica.fk_stato = 'Archived' AND utenti.username = modifica.fk_username AND stato.stato = modifica.fk_stato AND task.id = modifica.fk_id";
+$query = "SELECT * FROM task, modifica, utenti, stato WHERE modifica.fk_stato = 'Archived' AND utenti.username = modifica.fk_username AND stato.stato = modifica.fk_stato AND task.id = modifica.fk_id ORDER BY modifica.tag DESC LIMIT 1";
 $risultatoQuery = mysqli_query($connection, $query);
 $array = array();
 while ($row = mysqli_fetch_assoc($risultatoQuery)) {

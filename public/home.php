@@ -47,13 +47,7 @@
         </a>
       </li>
       <li>
-        <a href="dashboard/elimina.php">
-          <i class="bx bx-calendar-minus"></i>
-          <span class="links_name">Elimina</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
+        <a href="dashboard/cronologia.php">
           <i class="bx bx-data"></i>
           <span class="links_name">Elenco attività</span>
         </a>
@@ -73,9 +67,9 @@
     </ul>
   </div>
   <section class="home-section">
-      <div class="text">Dashboard</div>
-      <div class="container">
-           <section class="dashboard">
+    <div class="text">Dashboard</div>
+    <div class="container">
+      <section class="dashboard">
         <div id="todo" class="tab">
           <h2>To-Do</h2>
           <div id="todoTasks" class="tasks"></div>
@@ -92,40 +86,40 @@
           <h2>Archived</h2>
           <div id="archivedTasks" class="tasks"></div>
         </div>
-      </div>
+    </div>
 
-      <script>
-        async function carica() {
-          try {
-            await Promise.all([
-              fetchAndPopulate('to_do.php', 'todoTasks'),
-              fetchAndPopulate('doing.php', 'doingTasks'),
-              fetchAndPopulate('done.php', 'doneTasks'),
-              fetchAndPopulate('archived.php', 'archivedTasks')
-            ]);
-          } catch (error) {
-            console.error(error);
-          }
+    <script>
+      async function carica() {
+        try {
+          await Promise.all([
+            fetchAndPopulate('to_do.php', 'todoTasks'),
+            fetchAndPopulate('doing.php', 'doingTasks'),
+            fetchAndPopulate('done.php', 'doneTasks'),
+            fetchAndPopulate('archived.php', 'archivedTasks')
+          ]);
+        } catch (error) {
+          console.error(error);
         }
+      }
 
-        async function fetchAndPopulate(script, targetId) {
-          const response = await fetch("../private/home/stato/" + script);
-          if (!response.ok) {
-            throw new Error('Errore durante il recupero delle task');
-          }
-          const tasks = await response.json();
-          const targetElement = document.getElementById(targetId);
-          tasks.forEach(task => {
-            const taskElement = document.createElement('div');
-            taskElement.classList.add('task');
-            taskElement.textContent = task.titolo;
-            targetElement.appendChild(taskElement);
-          });
+      async function fetchAndPopulate(script, targetId) {
+        const response = await fetch("../private/home/stato/" + script);
+        if (!response.ok) {
+          throw new Error('Errore durante il recupero delle task');
         }
+        const tasks = await response.json();
+        const targetElement = document.getElementById(targetId);
+        tasks.forEach(task => {
+          const taskElement = document.createElement('div');
+          taskElement.classList.add('task');
+          taskElement.textContent = task.titolo;
+          targetElement.appendChild(taskElement);
+        });
+      }
 
-        window.onload = carica;
-      </script>
-    </section>
+      window.onload = carica;
+    </script>
+  </section>
   <script src="../private/home.js"></script>
 </body>
 
