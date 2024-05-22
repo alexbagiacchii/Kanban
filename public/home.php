@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <title>KanBoard - Home</title>
-  <link rel="stylesheet" href="home.css" />
+  <link rel="stylesheet" href="css/home.css" />
   <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="img/logo.png">
 
 </head>
 
-<body>
+<body onload="carica()">
   <?php
   session_start();
   if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
@@ -68,59 +68,34 @@
   </div>
   <section class="home-section">
     <div class="text">Dashboard</div>
-    <div class="container">
-      <section class="dashboard">
-        <div id="todo" class="tab">
-          <h2>To-Do</h2>
-          <div id="todoTasks" class="tasks"></div>
-        </div>
-        <div id="doing" class="tab">
-          <h2>Doing</h2>
-          <div id="doingTasks" class="tasks"></div>
-        </div>
-        <div id="done" class="tab">
-          <h2>Done</h2>
-          <div id="doneTasks" class="tasks"></div>
-        </div>
-        <div id="archived" class="tab">
-          <h2>Archived</h2>
-          <div id="archivedTasks" class="tasks"></div>
-        </div>
-    </div>
+    <section class="dashboard">
 
-    <script>
-      async function carica() {
-        try {
-          await Promise.all([
-            fetchAndPopulate('to_do.php', 'todoTasks'),
-            fetchAndPopulate('doing.php', 'doingTasks'),
-            fetchAndPopulate('done.php', 'doneTasks'),
-            fetchAndPopulate('archived.php', 'archivedTasks')
-          ]);
-        } catch (error) {
-          console.error(error);
-        }
-      }
+      <div id="todo" class="tab">
+        <h2>To-Do</h2>
+        <div id="todoTasks" class="tasks"></div>
+      </div>
+      <div id="doing" class="tab">
+        <h2>Doing</h2>
+        <div id="doingTasks" class="tasks"></div>
+      </div>
+      <div id="done" class="tab">
+        <h2>Done</h2>
+        <div id="doneTasks" class="tasks"></div>
+      </div>
+      <div id="archived" class="tab">
+        <h2>Archived</h2>
+        <div id="archivedTasks" class="tasks"></div>
+      </div>
+      <script>
+        async function carica() {
+            const response = await fetch("../private/home/elenco_attivita.php");
+            const data = await response.json();
+            console.log(data);
 
-      async function fetchAndPopulate(script, targetId) {
-        const response = await fetch("../private/home/stato/" + script);
-        if (!response.ok) {
-          throw new Error('Errore durante il recupero delle task');
-        }
-        const tasks = await response.json();
-        const targetElement = document.getElementById(targetId);
-        tasks.forEach(task => {
-          const taskElement = document.createElement('div');
-          taskElement.classList.add('task');
-          taskElement.textContent = task.titolo;
-          targetElement.appendChild(taskElement);
-        });
-      }
-
-      window.onload = carica;
-    </script>
-  </section>
-  <script src="../private/home.js"></script>
+          }
+      </script>
+    </section>
+    <script src="../private/home.js"></script>
 </body>
 
 </html>

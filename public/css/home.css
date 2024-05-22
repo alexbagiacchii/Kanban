@@ -65,14 +65,6 @@
   text-align: right;
 }
 
-.error {
-  color: red;
-}
-
-.success {
-  color: #32be8f;
-}
-
 .sidebar i {
   color: #fff;
   height: 60px;
@@ -124,7 +116,7 @@
 
 .sidebar input {
   font-size: 15px;
-  color: #fff;
+  color: #FFF;
   font-weight: 400;
   outline: none;
   height: 50px;
@@ -148,16 +140,16 @@
   transform: translateY(-50%);
   font-size: 22px;
   background: #1d1b31;
-  color: #fff;
+  color: #FFF;
 }
 
 .sidebar.open .bx-search:hover {
   background: #1d1b31;
-  color: #fff;
+  color: #FFF;
 }
 
 .sidebar .bx-search:hover {
-  background: #fff;
+  background: #FFF;
   color: #11101d;
 }
 
@@ -173,7 +165,7 @@
 }
 
 .sidebar li a:hover {
-  background: #fff;
+  background: #FFF;
 }
 
 .sidebar li a .links_name {
@@ -194,7 +186,7 @@
 .sidebar li a:hover .links_name,
 .sidebar li a:hover i {
   transition: all 0.5s ease;
-  color: #11101d;
+  color: #11101D;
 }
 
 .sidebar li i {
@@ -266,7 +258,7 @@
 
 .home-section {
   position: relative;
-  background: #e4e9f7;
+  background: #E4E9F7;
   min-height: 100vh;
   top: 0;
   left: 78px;
@@ -275,41 +267,17 @@
   z-index: 2;
 }
 
-.glass-card {
-  display: inline-block;
-  background: #000000;
-  backdrop-filter: blur(10px);
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  height: fit-content;
-}
-
-.glass-card-inserisci {
-  background: #ffffff;
-  backdrop-filter: blur(10px);
-  border-radius: 10px;
-  padding: 20px;
-  min-width: 96%;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-}
-
-
-.h2-elimina {
-  margin-top: 10px;
-}
-
 .dashboard {
   padding-left: 20px;
-  display: flex;
 }
 
 .tab {
   display: inline-block;
-  background-color: #fff;
+  background-color: #ffffff;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: calc(25% - 20px);
+  height: 500px;
   padding: 10px;
 }
 
@@ -319,79 +287,70 @@ h2 {
   color: #333;
 }
 
-input {
-  outline: none;
-  display: inline-block;
-  position: relative;
-  border-radius: 5px;
-  width: 220px;
-  padding: 0 18px;
+.tasks {
+  flex-direction: column-reverse;
+  display: flex;
+
 }
 
-select {
-  border: 2px solid #000000;
-  border-radius: 5px;
-  background-color: #fff;
-  color: #555;
-}
-
-select:focus {
-  outline: none;
-  border-color: #66afe9;
-  box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
-}
-
-select option {
+.task {
   padding: 10px;
-  background-color: #fff;
-  color: #555;
-}
-
-select option:checked {
-  background-color: #66afe9;
-  color: #fff;
-}
-
-.button-aggiungi {
-  padding: 1px;
-  margin-left: 35px;
+  margin-bottom: 10px;
+  background-color: #e5e5e5;
   border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  background-color: #ffffff;
-  color: #000000;
-}
-
-.button-elimina {
-  padding: 1px;
-  margin-left: 35px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  background-color: #ffffff;
-  color: #000000;
-}
-
-.button-elimina:hover {
-  background-color: #c53c38;
-}
-
-.button-aggiungi:hover {
-  background-color: #38d39f;
+  max-height: 400px;
+  display: flex;
 }
 
 .styled-table {
-  margin-right: 20px;
   border-collapse: collapse;
+  margin: 25px 0;
   font-size: 0.9em;
   font-family: sans-serif;
   min-width: 400px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
+.styled-table-cronologia {
+  border-collapse: collapse;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 96%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table-cronologia thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+}
+
+.styled-table-cronologia th,
+.styled-table-cronologia td {
+  padding: 12px 15px;
+}
+
+.styled-table-cronologia tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table-cronologia tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.styled-table-cronologia tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.styled-table-cronologiae tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+}
+
+
 .styled-table thead tr {
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #009879;
+  color: #ffffff;
   text-align: left;
 }
 
@@ -417,8 +376,9 @@ select option:checked {
   color: #009879;
 }
 
+
 .task:hover {
-  background-color: #e0e0e0;
+  cursor: grab;
 }
 
 .sidebar.open~.home-section {
@@ -431,7 +391,7 @@ select option:checked {
   color: #38d39f;
   font-size: 25px;
   font-weight: 500;
-  margin: 18px;
+  margin: 18px
 }
 
 @media (max-width: 420px) {
