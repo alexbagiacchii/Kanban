@@ -277,7 +277,7 @@
 
 .glass-card {
   display: inline-block;
-  background: #ffffff;
+  background: #000000;
   backdrop-filter: blur(10px);
   border-radius: 10px;
   padding: 20px;
