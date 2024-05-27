@@ -1,3 +1,32 @@
+<?php
+session_start();
+if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
+  $username = $_COOKIE['username'];
+} else {
+  header("Location: ../login.php");
+  exit;
+}
+
+require_once '../config.php';
+
+$connection = mysqli_connect(host, username, password, db_name);
+if (!$connection) {
+  die("Connessione al database fallita: " . mysqli_connect_error());
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['idTask'], $_POST['nuovoStato'])) {
+  $idTask = mysqli_real_escape_string($connection, $_POST['idTask']);
+  $nuovoStato = mysqli_real_escape_string($connection, $_POST['nuovoStato']);
+  $aggiornaTask = "INSERT INTO modifica (data, fk_id, fk_stato, fk_username) VALUES (NOW(), '$idTask', '$nuovoStato', '$username')";
+
+  // Esegui la query nel database
+  if (mysqli_query($connection, $aggiornaTask)) {
+    echo "Task aggiornato con successo";
+  } else {
+    echo "Errore nell'esecuzione della query: " . mysqli_error($connection);
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,36 +34,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KanBoard - Home</title>
-  <link rel="stylesheet" href="../css/kanban.css" />
+  <link rel="stylesheet" href="kanban.css" />
   <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
   <link rel="icon" href="img/logo.png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
 </head>
 
 <body onload="carica()">
-  <?php
-  session_start();
-  if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
-    $username = $_COOKIE['username'];
-  } else {
-    header("Location: ../login/loginForm.php");
-    exit;
-  }
-  ?>
   <section>
-    <div id="todo">
+    <div id="todo" class="dropzone">
       <h2>To-Do</h2>
       <div></div>
     </div>
-    <div id="doing">
+    <div id="doing" class="dropzone">
       <h2>Doing</h2>
       <div></div>
     </div>
-    <div id="done">
+    <div id="done" class="dropzone">
       <h2>Done</h2>
       <div></div>
     </div>
-    <div id="archived">
+    <div id="archived" class="dropzone">
       <h2>Archived</h2>
       <div></div>
     </div>
@@ -45,66 +65,44 @@
       const dati = await risposta.json();
       console.log(dati);
 
-      const taskToDo = dati.filter(function (task) {
-        return task.stato === "To-Do";
-      });
-      const taskDoing = dati.filter(function (task) {
-        return task.stato === "Doing";
-      });
-      const taskDone = dati.filter(function (task) {
-        return task.stato === "Done";
-      });
-      const taskArchived = dati.filter(function (task) {
-        return task.stato === "Archived";
-      });
-
-      inserisciTask(taskToDo, "todo");
-      inserisciTask(taskDoing, "doing");
-      inserisciTask(taskDone, "done");
-      inserisciTask(taskArchived, "archived");
+      ['To-Do', 'Doing', 'Done', 'Archived'].forEach(stato => inserisciTask(dati.filter(task => task.stato === stato), stato.toLowerCase()));
     }
 
     function inserisciTask(tasks, idStato) {
-      const scheda = document.querySelector("#" + idStato + " > div");
-      tasks.forEach(function (task) {
+      tasks.forEach(task => {
         const elementoTask = document.createElement("div");
         elementoTask.textContent = task.titolo;
-        elementoTask.setAttribute('data-id', task.id);
-        scheda.appendChild(elementoTask);
-      });
-
-      new Sortable(scheda, {
-        group: 'tasks', 
-        animation: 150,
-        onEnd: function (evt) {
-          const taskID = evt.item.getAttribute('data-id');
-          const newState = idStato;
-          const username = "admin";
-          fetch('aggiornaTask.php', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              taskId: taskID,
-              newState: newState
-            }),
-          })
-            .then(response => response.json())
-            .then(data => {
-              if (data.success) {
-                console.log("Stato della task aggiornato con successo.");
-              } else {
-                console.error("Si è verificato un errore durante l'aggiornamento dello stato della task.");
-              }
-            })
-            .catch(error => {
-              console.error("Si è verificato un errore durante la richiesta AJAX:", error);
-            });
-          console.log("Task", taskID, "spostata a", newState);
-        }
+        elementoTask.dataset.id = task.id;
+        elementoTask.draggable = true;
+        elementoTask.addEventListener('dragstart', handleDragStart);
+        document.querySelector(`#${idStato} > div`).appendChild(elementoTask);
       });
     }
+
+    function handleDragStart(event) {
+      event.dataTransfer.setData('text/plain', event.target.dataset.id);
+    }
+
+    document.querySelectorAll('.dropzone').forEach(dropZone => {
+      dropZone.addEventListener('dragover', event => event.preventDefault());
+      dropZone.addEventListener('drop', async event => {
+        event.preventDefault();
+        const taskId = event.dataTransfer.getData('text/plain');
+        const newState = event.currentTarget.id;
+        const response = await fetch('home.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: `idTask=${taskId}&nuovoStato=${newState}`
+        });
+        if (response.ok) {
+          window.location.reload();
+        } else {
+          console.error('Errore');
+        }
+      });
+    });
   </script>
   <script src="../js/home.js"></script>
 </body>
