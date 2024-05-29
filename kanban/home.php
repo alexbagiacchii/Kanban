@@ -14,13 +14,11 @@ if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KanBoard - Home</title>
-  <link rel="stylesheet" href="test/kanban.css" />
+  <link rel="stylesheet" href="../css/home.css" />
   <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
   <link rel="icon" href="img/logo.png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
 </head>
-
-<h1 class="titolo">KANBAN</h1>
 
 <body onload="carica()">
   <div class="sidebar" id="mySidebar">
