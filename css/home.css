@@ -39,6 +39,7 @@ section {
   display: flex;
   justify-content: center; 
   align-items: center;
+  font-size: 15px;
 }
 
 .dropzone div div:hover {
@@ -58,7 +59,7 @@ section {
   margin-top: 30px;
 }
 
-.dropzone button:hover {
+.dropzone button {
   background-color: #45a049;
 }
 
