@@ -63,7 +63,7 @@ section {
   background-color: #45a049;
 }
 
-.sidebar {
+.menu {
   height: 100%;
   width: 0;
   position: fixed;
@@ -76,7 +76,7 @@ section {
   padding-top: 60px;
 }
 
-.sidebar a {
+.menu a {
   padding: 10px 15px;
   text-decoration: none;
   font-size: 20px;
@@ -85,15 +85,15 @@ section {
   transition: 0.3s;
 }
 
-.sidebar a:hover {
+.menu a:hover {
   color: #f1f1f1;
 }
 
-.sidebar-open {
+.menu-open {
   width: 250px;
 }
 
-.sidebar-closed {
+.menu-closed {
   width: 0;
 }
 .content {
@@ -121,4 +121,37 @@ section {
 
 .titolo {
   margin-bottom: 0;
+}
+
+.aggiungi {
+  text-decoration: none;
+}
+
+.utente {
+  background-color: #da8282; 
+}
+
+table {
+  flex: 1;
+  margin: 10px;
+  margin-left: 0;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+tr {
+  text-align: left;
+}
+
+.inserisci {
+  flex: 1;
+  float: left;
+  margin: 10px;
+  margin-left: 0;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

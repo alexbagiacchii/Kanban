@@ -3,7 +3,7 @@ session_start();
 if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
   $username = $_COOKIE['username'];
 } else {
-  header("Location: ../login.php");
+  header("Location: ../login/login.php");
   exit;
 }
 
