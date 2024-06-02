@@ -16,7 +16,7 @@ if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
   <title>KanBoard - Home</title>
   <link rel="stylesheet" href="../css/home.css" />
   <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
-  <link rel="icon" href="img/logo.png">
+  <link rel="icon" href="../img/logo.png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
 </head>
 
@@ -32,14 +32,13 @@ if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
 
   <div class="content" id="main">
     <button class="openbtn" onclick="toggleSidebar()">☰ Menu</button>
-    <section>
+    <section class="utenti">
       <table>
         <thead>
           <tr>
             <th>Username</th>
             <th>Nome</th>
             <th>Cognome</th>
-            <th>Ruolo</th>
           </tr>
         </thead>
         <tbody>
@@ -56,75 +55,66 @@ if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
           $risultatoUtenti = mysqli_query($connection, $elencoUtenti);
 
           while ($row = mysqli_fetch_assoc($risultatoUtenti)) {
-            echo "<tr";
-            if ($row['username'] === $username) {
-              echo " class='utente'";
-            }
-            echo ">";
+            echo "<tr>";
             echo "<td>" . $row['username'] . "</td>";
             echo "<td>" . $row['nome'] . "</td>";
             echo "<td>" . $row['cognome'] . "</td>";
-            echo "<td>" . $row['ruolo'] . "</td>";
             echo "</tr>";
           }
           ?>
         </tbody>
       </table>
-      <div class="inserisci">
-      <form action="" method="POST">
-          <h4>Inserisci nuovo utente</h4>
-          <?php
-          require_once '../config.php';
+      <div class="utenti">
+        <section class="inserisci">
+          <form action="" method="POST">
+            <h4>Inserisci nuovo utente</h4>
+            <?php
+            require_once '../config.php';
 
-          $connection = @mysqli_connect(host, username, password, db_name);
-          if (!$connection) {
-            die("Connessione al database fallita: " . mysqli_connect_error());
-          }
+            $connection = @mysqli_connect(host, username, password, db_name);
+            if (!$connection) {
+              die("Connessione al database fallita: " . mysqli_connect_error());
+            }
 
-          if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $username = $_POST["username"];
-            $nome = $_POST["nome"];
-            $cognome = $_POST["cognome"];
-            $password = $_POST["password"];
-            $ruolo = $_POST["ruolo"];
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+              $username = $_POST["username"];
+              $nome = $_POST["nome"];
+              $cognome = $_POST["cognome"];
+              $password = $_POST["password"];
 
-            $controlloDuplicati = "SELECT username FROM utenti WHERE username = '$username'";
-            $risultatoDuplicati = mysqli_query($connection, $controlloDuplicati);
+              $controlloDuplicati = "SELECT username FROM utenti WHERE username = '$username'";
+              $risultatoDuplicati = mysqli_query($connection, $controlloDuplicati);
 
-            if (mysqli_num_rows($risultatoDuplicati) > 0) {
-              while ($row = mysqli_fetch_assoc($risultatoDuplicati)) {
-                ?>
-                <h4 class="error">Username già esistente.</h4>
-                <?php
-              }
-            } else {
-              $registraUtente = "INSERT INTO utenti (username, nome, cognome, password, ruolo) VALUES ('$username', '$nome', '$cognome', '$password', '$ruolo')";
-
-              if (mysqli_query($connection, $registraUtente)) {
-                ?>
-                <h4 class="success">Registrazione completata.</h4>
-                <?php
+              if (mysqli_num_rows($risultatoDuplicati) > 0) {
+                while ($row = mysqli_fetch_assoc($risultatoDuplicati)) {
+                  ?>
+                  <h4 class="error">Username già esistente.</h4>
+                  <?php
+                }
               } else {
-                ?>
-                <h4 class="error">C'è stato un problema durante la registrazione.</h4>
-                <?php
+                $registraUtente = "INSERT INTO utenti (username, nome, cognome, password) VALUES ('$username', '$nome', '$cognome', '$password')";
+
+                if (mysqli_query($connection, $registraUtente)) {
+                  ?>
+                  <h4 class="success">Registrazione completata.</h4>
+                  <?php
+                } else {
+                  ?>
+                  <h4 class="error">C'è stato un problema durante la registrazione.</h4>
+                  <?php
+                }
               }
             }
-          }
-          mysqli_close($connection);
-          ?>
-          <input type="text" name="username" placeholder="Username" required>
-          <input type="text" name="nome" placeholder="Nome" required>
-          <input type="text" name="cognome" placeholder="Cognome" required>
-          <input type="password" name="password" placeholder="Password" required>
-          <select name="ruolo" required>
-            <option value="user">Utente</option>
-            <option value="admin">Admin</option>
-            <option value="readonly">Read-Only</option>
-          </select>
-          <button type="submit" class="button-aggiungi">Aggiungi utente</button>
-        </form>
-        </div>
+            mysqli_close($connection);
+            ?>
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="text" name="nome" placeholder="Nome" required>
+            <input type="text" name="cognome" placeholder="Cognome" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit" class="button-aggiungi">Aggiungi utente</button>
+          </form>
+      </div>
+    </section>
     </section>
   </div>
 

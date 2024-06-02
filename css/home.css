@@ -37,7 +37,7 @@ section {
   border-radius: 5px;
   cursor: pointer;
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
   font-size: 15px;
 }
@@ -96,6 +96,7 @@ section {
 .menu-closed {
   width: 0;
 }
+
 .content {
   transition: margin-left .5s;
   padding: 16px;
@@ -128,7 +129,7 @@ section {
 }
 
 .utente {
-  background-color: #da8282; 
+  background-color: #da8282;
 }
 
 table {
@@ -154,4 +155,132 @@ tr {
   background-color: #ffffff;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.inserisciTask {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.inserisciTask-contenuto {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: fit-content;
+  height: fit-content;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  animation-name: inserisciTask-apri;
+  animation-duration: 0.4s;
+}
+
+.chiudi {
+  color: #6b6b6b;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.chiudi:hover,
+.chiudi:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+form {
+  margin-bottom: 15px;
+  padding: 10px;
+  width: calc(100% - 20px);
+  border-radius: 5px;
+  display: block;
+  font-size: 16px;
+}
+
+input {
+  margin-bottom: 15px;
+  padding: 10px;
+  width: calc(100% - 20px);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+select {
+  margin-bottom: 15px;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.fa-solid.fa-bell {
+  color: #38d39f;
+  margin-left: 10px; 
+  font-size: 24px;
+}
+
+.notifiche {
+  margin: 10px;
+  margin-left: 0;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dettagliTask {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dettagliTask-contenuto {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: fit-content;
+  height: fit-content;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  animation-name: inserisciTask-apri;
+  animation-duration: 0.4s;
+}
+
+@keyframes inserisciTask-apri {
+  from {
+    opacity: 0
+  }
+
+  to {
+    opacity: 1
+  }
+}
+
+.utenti {
+  display: flex;
+  flex-direction: column;
 }

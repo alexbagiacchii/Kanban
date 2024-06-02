@@ -53,7 +53,7 @@
                             <input type="button" id="registerButton" class="btn" value="Accedi">
                             <script>
                                 document.getElementById("registerButton").addEventListener("click", function () {
-                                    window.location.href = "../login/loginForm.php";
+                                    window.location.href = "../login/login.php";
                                 });
                             </script>
                             <?php
@@ -106,7 +106,7 @@
                         </div>
                     </div>
                     <div class="links-container">
-                        <a href="../login/loginForm.php">Accedi</a>
+                        <a href="../login/login.php">Accedi</a>
                     </div>
                     <input type="submit" class="btn" value="Registrati">
                 </div>

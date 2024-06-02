@@ -35,11 +35,11 @@
                     if (mysqli_num_rows($risultatoControllo) > 0) {
                         ?>
                         <h2 class="title">Errore</h2>
-                        <h3 class="error">Password inserita è uguale a quella vecchia.</h3>
+                        <h3 class="error">La password inserita è uguale a quella vecchia.</h3>
                         <input type="button" id="registerButton" class="btn" value="Accedi">
                         <script>
                             document.getElementById("registerButton").addEventListener("click", function () {
-                                window.location.href = "../login/loginForm.php";
+                                window.location.href = "../login/login.php";
                             });
                         </script>
                         <?php
@@ -52,7 +52,7 @@
                             <input type="button" id="registerButton" class="btn" value="Accedi">
                             <script>
                                 document.getElementById("registerButton").addEventListener("click", function () {
-                                    window.location.href = "../login/loginForm.php";
+                                    window.location.href = "../login/login.php";
                                 });
                             </script>
                             <?php

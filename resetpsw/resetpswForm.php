@@ -43,8 +43,8 @@
 					</div>
 				</div>
 				<div class="links-container">
-					<a href="../login/loginForm.php">Accedi</a>
-					<a href="../register/registerForm.php">Registrati</a>
+					<a href="../login/login.php">Accedi</a>
+					<a href="../register/register.php">Registrati</a>
 				</div>
 				<div id="btnUsername">
 					<button type="button" onclick="esisteUtente()" class="btn">Cerca</button>

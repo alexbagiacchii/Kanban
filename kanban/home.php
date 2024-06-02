@@ -9,6 +9,7 @@ if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
 
 ?>
 <!DOCTYPE html>
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -16,13 +17,30 @@ if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
   <title>KanBoard - Home</title>
   <link rel="stylesheet" href="../css/home.css" />
   <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
-  <link rel="icon" href="img/logo.png">
+  <link rel="icon" href="../img/logo.png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
 </head>
 
-<h1 class="titolo">KANBAN</h1>
-
 <body onload="carica()">
+  <h1 class="titolo">KANBAN</h1>
+
+  <div id="inserisciTask" class="inserisciTask">
+    <div class="inserisciTask-contenuto">
+      <span class="chiudi" onclick="chiudiInserisci()">&times;</span>
+      <form action="aggiungi.php" method="POST">
+        <input type="text" name="titolo" placeholder="Titolo" required>
+        <input type="text" name="descrizione" placeholder="Descrizione" required>
+        <input type="datetime-local" name="data" placeholder="Data inizio" required>
+        <select name="priorita" required>
+          <option value="bassa">Bassa</option>
+          <option value="media">Media</option>
+          <option value="alta">Alta</option>
+        </select>
+        <button type="submit">Inserisci</button>
+      </form>
+    </div>
+  </div>
+
   <div class="menu" id="menu">
     <a href="home.php">Home</a>
     <a href="utenti.php">Utenti</a>
@@ -36,7 +54,7 @@ if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
       <div id="to-do" class="dropzone">
         <h2>To-Do</h2>
         <div></div>
-        <a class="aggiungi" href='aggiungi.php'><button>+</button></a>
+        <button onclick="apriInserisci()">+</button>
       </div>
       <div id="doing" class="dropzone">
         <h2>Doing</h2>
@@ -51,6 +69,19 @@ if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
         <div></div>
       </div>
     </section>
+  </div>
+
+  <div id="dettagliTask" class="dettagliTask">
+    <div class="dettagliTask-contenuto">
+      <span class="chiudi" onclick="chiudiDettagli()">&times;</span>
+      <h2 id="titolo"></h2>
+      <p id="descrizione"></p>
+      <p id="utente"></p>
+      <p id="stato"></p>
+      <p id="priorita"></p>
+      <p id="data_inizio"></p>
+      <p id="data"></p>
+    </div>
   </div>
 
   <script>
@@ -72,6 +103,11 @@ if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
         elementoTask.dataset.id = task.id;
         elementoTask.draggable = true;
         elementoTask.style.backgroundColor = coloreTask(task.priorita);
+
+        elementoTask.addEventListener('click', function () {
+          apriDettagli(task.titolo, task.descrizione, task.fk_username, task.fk_stato, task.priorita, task.data_inizio, task.data);
+        });
+
         elementoTask.addEventListener('dragstart', handleDragStart);
         document.querySelector('#' + idStato + ' > div').appendChild(elementoTask);
       });
@@ -80,11 +116,11 @@ if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
     function coloreTask(priorita) {
       switch (priorita.toLowerCase()) {
         case 'alta':
-          return '#FF6347';
+          return '#fb5607';
         case 'media':
-          return '#FFD700';
+          return '#ffbe0b';
         case 'bassa':
-          return '#00FF00';
+          return '#3a86ff';
         default:
           return '#f9f9f9';
       }
@@ -143,6 +179,35 @@ if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
         menu.style.width = '250px';
         document.getElementById("main").style.marginLeft = "250px";
       }
+    }
+
+    function apriInserisci() {
+      var scheda = document.getElementById("inserisciTask");
+      scheda.style.display = "block";
+      document.body.style.overflow = "hidden";
+    }
+
+    function chiudiInserisci() {
+      var scheda = document.getElementById("inserisciTask");
+      scheda.style.display = "none";
+      document.body.style.overflow = "auto";
+    }
+
+    function apriDettagli(titolo, descrizione, utente, stato, priorita, data_inizio, data) {
+      document.getElementById('titolo').textContent = titolo;
+      document.getElementById('descrizione').textContent = "Descrizione: " + descrizione;
+      document.getElementById('utente').textContent = "Utente: " + utente;
+      document.getElementById('stato').textContent = "Stato: " + stato;
+      document.getElementById('priorita').textContent = "Priorità: " + priorita;
+      document.getElementById('data_inizio').textContent = "Data inizio: " + data_inizio;
+      document.getElementById('data').textContent = "Ultima modifica: " + data;
+      var scheda = document.getElementById("dettagliTask");
+      scheda.style.display = "block";
+    }
+
+    function chiudiDettagli() {
+      var scheda = document.getElementById("dettagliTask");
+      scheda.style.display = "none";
     }
   </script>
 </body>

@@ -70,7 +70,7 @@
 					</div>
 				</div>
 				<div class="links-container">
-					<a href="../register/registerForm.php">Registrati</a>
+					<a href="../register/register.php">Registrati</a>
 					<a href="../resetpsw/resetpswForm.php">Password dimenticata?</a>
 				</div>
 				<input type="submit" class="btn" value="Login">
