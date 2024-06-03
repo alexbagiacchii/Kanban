@@ -6,8 +6,8 @@ if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
   header("Location: ../login/login.php");
   exit;
 }
-
 ?>
+
 <!DOCTYPE html>
 
 <head>
@@ -113,8 +113,41 @@ if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit" class="button-aggiungi">Aggiungi utente</button>
           </form>
+        </section>
       </div>
-    </section>
+
+      <section class="elimina">
+        <form action="eliminaUtente" method="POST">
+          <h4>Elimina utente</h4>
+          <?php
+          require_once '../config.php';
+
+          $connection = @mysqli_connect(host, username, password, db_name);
+          if (!$connection) {
+            die("Connessione al database fallita: " . mysqli_connect_error());
+          }
+          $elencoUtenti = "SELECT * FROM utenti";
+          $risultatoUtenti = mysqli_query($connection, $elencoUtenti);
+
+          if (!$risultatoUtenti) {
+            die("Errore: impossibile caricare le informazioni richieste: " . mysqli_error($connection));
+          }
+
+          if (mysqli_num_rows($risultatoUtenti) > 0) {
+            echo " <select name='utente'>";
+            while ($row = mysqli_fetch_assoc($risultatoUtenti)) {
+              echo "<option value=" . $row["nome"] . ">" . $row["username"] . "</option>";
+            }
+          } else {
+            echo "Errore: nessun dato esistente nel DB.";
+          }
+
+          mysqli_close($connection);
+          ?>
+          </select>
+          <button type="submit" class="button-aggiungi">Elimina utente</button>
+        </form>
+      </section>
     </section>
   </div>
 
