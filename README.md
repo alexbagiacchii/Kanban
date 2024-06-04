@@ -11,7 +11,7 @@
     <a href="https://github.com/alexbagiacchii/kanban"><strong>« Esplora il progetto »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/alexbagiacchii/kanban/demo">Guarda la demo</a>
+    <a href="https://github.com/alexbagiacchii/kanban/tree/master/demo">Guarda la demo</a>
   </p>
 </div>
 
