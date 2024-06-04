@@ -9,7 +9,6 @@ if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -50,6 +49,11 @@ if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
 
   <div class="content" id="main">
     <button class="openbtn" onclick="toggleSidebar()">☰ Menu</button>
+        <ul>
+          <li class="priorita-alta">Urgente</li>
+          <li class="priorita-media">Media</li>
+          <li class="priorita-bassa">Bassa</li>
+        </ul>
     <section>
       <div id="to-do" class="dropzone">
         <h2>To-Do</h2>
@@ -81,6 +85,26 @@ if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
       <p id="priorita"></p>
       <p id="data_inizio"></p>
       <p id="data"></p>
+      <button id="apriModifica">Modifica</button>
+    </div>
+  </div>
+
+  <div id="modificaTask" class="modificaTask">
+    <div class="modificaTask-contenuto">
+      <span class="chiudi" onclick="chiudiModifica()">&times;</span>
+      <form action="modificaTask.php" method="POST">
+        <input type="text" name="idTask" required hidden>
+        <input type="text" name="nuovoTitolo" placeholder="Titolo" required value="ciao" id="nuovoTitolo">
+        <input type="text" name="nuovaDescrizione" placeholder="Descrizione" required>
+        <select name="nuovaPriorita">
+          <option value="alta">Alta</option>
+          <option value="media">Bassa</option>
+          <option value="bassa">Media</option>
+        </select>
+        <p id="prova"></p>
+        <input type="datetime-local" name="nuovaData" placeholder="Data inizio" required>
+        <button type="submit">Aggiorna</button>
+      </form>
     </div>
   </div>
 
@@ -105,7 +129,7 @@ if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
         elementoTask.style.backgroundColor = coloreTask(task.priorita);
 
         elementoTask.addEventListener('click', function () {
-          apriDettagli(task.titolo, task.descrizione, task.fk_username, task.fk_stato, task.priorita, task.data_inizio, task.data);
+          apriDettagli(task.id, task.titolo, task.descrizione, task.fk_username, task.fk_stato, task.priorita, task.data_inizio, task.data);
         });
 
         elementoTask.addEventListener('dragstart', handleDragStart);
@@ -193,7 +217,7 @@ if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
       document.body.style.overflow = "auto";
     }
 
-    function apriDettagli(titolo, descrizione, utente, stato, priorita, data_inizio, data) {
+    function apriDettagli(id, titolo, descrizione, utente, stato, priorita, data_inizio, data) {
       document.getElementById('titolo').textContent = titolo;
       document.getElementById('descrizione').textContent = "Descrizione: " + descrizione;
       document.getElementById('utente').textContent = "Utente: " + utente;
@@ -201,12 +225,33 @@ if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
       document.getElementById('priorita').textContent = "Priorità: " + priorita;
       document.getElementById('data_inizio').textContent = "Data inizio: " + data_inizio;
       document.getElementById('data').textContent = "Ultima modifica: " + data;
+      let b = document.getElementById('apriModifica');
+      b.addEventListener('click', function () {
+        apriModifica(id, titolo, descrizione, priorita, data_inizio);
+      });
       var scheda = document.getElementById("dettagliTask");
       scheda.style.display = "block";
     }
 
     function chiudiDettagli() {
       var scheda = document.getElementById("dettagliTask");
+      scheda.style.display = "none";
+    }
+
+    function apriModifica(id, titolo, descrizione, priorita, data_inizio) {
+      document.getElementsByName('idTask')[0].value = id;
+      document.getElementsByName('nuovoTitolo')[0].value = titolo;
+      document.getElementsByName('nuovaDescrizione')[0].value = descrizione;
+      document.getElementsByName('nuovaPriorita')[0].value = priorita;
+      document.getElementsByName('nuovaData')[0].value = data_inizio;
+
+      var scheda = document.getElementById("modificaTask");
+      scheda.style.display = "block";
+      document.body.style.overflow = "hidden";
+    }
+
+    function chiudiModifica() {
+      var scheda = document.getElementById("modificaTask");
       scheda.style.display = "none";
     }
   </script>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Creato il: Mag 10, 2024 alle 07:15
+-- Creato il: Giu 04, 2024 alle 11:30
 -- Versione del server: 10.11.6-MariaDB-0+deb12u1
 -- Versione PHP: 8.2.7
 
@@ -30,7 +30,6 @@ SET time_zone = "+00:00";
 CREATE TABLE `modifica` (
   `tag` int(11) NOT NULL,
   `data` datetime NOT NULL,
-  `descrizione` varchar(50) NOT NULL,
   `fk_id` int(11) NOT NULL,
   `fk_stato` varchar(10) NOT NULL,
   `fk_username` varchar(30) NOT NULL
@@ -40,8 +39,17 @@ CREATE TABLE `modifica` (
 -- Dump dei dati per la tabella `modifica`
 --
 
-INSERT INTO `modifica` (`tag`, `data`, `descrizione`, `fk_id`, `fk_stato`, `fk_username`) VALUES
-(1, '2024-05-10 09:14:33', 'Prova', 1, 'To-Do', 'admin');
+INSERT INTO `modifica` (`tag`, `data`, `fk_id`, `fk_stato`, `fk_username`) VALUES
+(21, '2024-06-04 13:09:00', 11, 'to-do', 'admin'),
+(22, '2024-06-04 13:21:12', 12, 'to-do', 'admin'),
+(23, '2024-06-04 13:22:20', 13, 'to-do', 'alex'),
+(24, '2024-06-04 13:28:41', 13, 'done', 'alex'),
+(25, '2024-06-04 13:28:42', 12, 'done', 'alex'),
+(26, '2024-06-04 13:29:18', 14, 'to-do', 'alex'),
+(27, '2024-06-04 13:29:40', 15, 'to-do', 'alex'),
+(28, '2024-06-04 13:29:42', 14, 'doing', 'alex'),
+(29, '2024-06-04 13:29:43', 14, 'to-do', 'alex'),
+(30, '2024-06-04 13:29:46', 11, 'doing', 'alex');
 
 -- --------------------------------------------------------
 
@@ -59,11 +67,11 @@ CREATE TABLE `stato` (
 --
 
 INSERT INTO `stato` (`stato`, `nome`) VALUES
-('Aborted', 'Eliminata/Annullata'),
-('Archived', 'Archiviato'),
-('Doing', 'In corso'),
-('Done', 'Completato'),
-('To-Do', 'Da fare');
+('aborted', 'Eliminata/Annullata'),
+('archived', 'Archiviato'),
+('doing', 'In corso'),
+('done', 'Completato'),
+('to-do', 'Da fare');
 
 -- --------------------------------------------------------
 
@@ -84,13 +92,11 @@ CREATE TABLE `task` (
 --
 
 INSERT INTO `task` (`id`, `titolo`, `descrizione`, `data_inizio`, `priorita`) VALUES
-(1, 'Progetto di ricerca', 'Analisi dei dati e redazione della relazione', '2024-05-10 09:00:00', 'Alta'),
-(2, 'Aggiornamento del software', 'Implementazione delle nuove funzionalità e correzione di bug', '2024-05-12 14:30:00', 'Media'),
-(3, 'Riorganizzazione degli archivi', 'Digitalizzazione dei documenti e creazione di un sistema di archiviazione digitale', '2024-05-15 10:00:00', 'Bassa'),
-(4, 'Pianificazione del progetto', 'Definizione degli obiettivi e pianificazione delle attività', '2024-06-01 08:00:00', 'Alta'),
-(5, 'Test delle funzionalità', 'Esecuzione dei test e report dei risultati', '2024-05-10 10:30:00', 'Media'),
-(6, 'Meeting con il cliente', 'Discussione dei requisiti e pianificazione delle prossime fasi', '2024-05-14 15:00:00', 'Bassa'),
-(7, 'Revisione del codice', 'Analisi del codice sorgente e correzione degli errori', '2024-05-09 13:00:00', 'Alta');
+(11, 'Pulizia PC', 'Pulire CPU - RAM - VENTOLE', '2024-06-29 13:09:00', 'bassa'),
+(12, 'Fare i compiti', 'Matematica, Informatica, TPSIT', '2024-06-07 13:22:00', 'bassa'),
+(13, 'Pulire casa', 'Lavare pavimenti e fare lavatrice', '2024-06-04 13:26:00', 'media'),
+(14, 'Esame', 'Esame di stato', '2024-06-24 13:30:00', 'alta'),
+(15, 'Shopping', 'Fare nuovi acquisti', '2024-06-30 13:30:00', 'media');
 
 -- --------------------------------------------------------
 
@@ -110,7 +116,8 @@ CREATE TABLE `utenti` (
 --
 
 INSERT INTO `utenti` (`username`, `nome`, `cognome`, `password`) VALUES
-('admin', 'admin', 'admin', 'admin');
+('admin', 'admin', 'admin', 'admin'),
+('alex', 'alex', 'bagiacchi', '1234');
 
 --
 -- Indici per le tabelle scaricate
@@ -151,13 +158,13 @@ ALTER TABLE `utenti`
 -- AUTO_INCREMENT per la tabella `modifica`
 --
 ALTER TABLE `modifica`
-  MODIFY `tag` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `tag` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT per la tabella `task`
 --
 ALTER TABLE `task`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Limiti per le tabelle scaricate

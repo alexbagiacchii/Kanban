@@ -73,6 +73,7 @@ if (isset($_SESSION['autenticato']) && $_SESSION['autenticato'] === true) {
   </div>
 
   <script>
+
     function toggleSidebar() {
       var menu = document.getElementById("menu");
       if (menu.style.width === '250px') {
