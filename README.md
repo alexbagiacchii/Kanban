@@ -43,7 +43,7 @@
 <!-- ABOUT THE PROJECT -->
 ## Progetto
 ### Home.php
-[![Product Name Screen Shot](demo/demo-home.PNG)](https://github.com/alexbagiacchii/kanban/demo/demo-menu.png)
+[![Product Name Screen Shot](demo/demo-home.png)](https://github.com/alexbagiacchii/kanban/demo/demo-menu.png)
 
 ### Login.php
 [![Login](demo/demo-login.png)](https://github.com/alexbagiacchii/kanban/demo/demo-menu.png)
