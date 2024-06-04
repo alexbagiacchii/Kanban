@@ -60,7 +60,6 @@ KanBoard è un’applicazione web progettata per aiutare gli utenti a organizzar
 * Autenticazione Utente: Sistema di login sicuro per garantire la privacy dei dati.
 * Design Responsive: Accedi a KanBoard da qualsiasi dispositivo, che sia un desktop o uno smartphone.
 
-<p align="right">(<a href="#readme-top">torna in cima</a>)</p>
 
 ### Programmato con 
 
@@ -70,7 +69,6 @@ KanBoard è un’applicazione web progettata per aiutare gli utenti a organizzar
 * [![Php](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net)
 * [![MySql](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)](https://dev.mysql.com)
 
-<p align="right">(<a href="#readme-top">torna in cima</a>)</p>
 
 <!-- GETTING STARTED -->
 ## Per iniziare
@@ -116,7 +114,6 @@ Dopo aver installato Xampp segui questi passaggi:
    localhost/kanban/login/login.php
    ```
 
-<p align="right">(<a href="#readme-top">torna in cima</a>)</p>
 
 ## Utilizzo
 
@@ -131,7 +128,6 @@ Una volta avviato KanBoard, puoi:
 * Visualizzare gli utenti registrati, inserirne di nuovi ed eliminarli.
 * Visualizzare la cronologia di tutte le attività svolte.
 
-<p align="right">(<a href="#readme-top">torna in cima</a>)</p>
 
 <!-- ROADMAP -->
 ## Implementazioni
@@ -145,14 +141,12 @@ Una volta avviato KanBoard, puoi:
     - [ ] User
     - [ ] Just-look
      
-<p align="right">(<a href="#readme-top">torna in cima</a>)</p>
 
 <!-- CONTRIBUTING -->
 ## Contributi
 
 I contributi a KanBoard sono i benvenuti! Se hai idee per miglioramenti o nuove funzionalità, non esitare a aprire un problema o a inviare una richiesta di pull.
 
-<p align="right">(<a href="#readme-top">torna in cima</a>)</p>
 
 
 ## Licenza
@@ -165,4 +159,3 @@ L'autore non fornisce alcuna garanzia sul funzionamento o sulla qualità del cod
 
 © [2024] [Alexandru Bagiacchi]
 
-<p align="right">(<a href="#readme-top">torna in cima</a>)</p>
