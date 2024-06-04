@@ -11,7 +11,7 @@
     <a href="https://github.com/alexbagiacchii/kanban"><strong>« Esplora il progetto »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">Guarda la Demo</a>
+    <a href="https://github.com/alexbagiacchii/kanban/demo">Guarda la demo</a>
     ·
     <a href="https://github.com/othneildrew/Best-README-Template/issues/new?labels=bug&template=bug-report---.md">Segnala Bug</a>
     ·
@@ -27,7 +27,7 @@
     <li> 
       <a href="#about-the-project">Il progetto</a>
       <ul>
-        <li><a href="#built-with">Programmato con</a></li>
+        <li><a href="#built-with">Linguaggi utilizzati</a></li>
       </ul>
     </li>
     <li>
@@ -51,7 +51,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]](https://github.com/alexbagiacchii/kanban/demo/demo-menu.png)
 
 There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
 
