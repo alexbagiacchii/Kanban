@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.1deb1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Creato il: Giu 04, 2024 alle 18:52
--- Versione del server: 10.4.32-MariaDB
--- Versione PHP: 8.2.12
+-- Host: localhost:3306
+-- Creato il: Giu 06, 2024 alle 07:32
+-- Versione del server: 10.11.6-MariaDB-0+deb12u1
+-- Versione PHP: 8.2.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `kanban`
+-- Database: `5i1_bagiacchidylan`
 --
 
 -- --------------------------------------------------------
@@ -41,17 +41,8 @@ CREATE TABLE `modifica` (
 
 INSERT INTO `modifica` (`tag`, `data`, `fk_id`, `fk_stato`, `fk_username`) VALUES
 (23, '2024-06-04 13:22:20', 13, 'to-do', 'alex'),
-(24, '2024-06-04 13:28:41', 13, 'done', 'alex'),
-(25, '2024-06-04 13:28:42', 12, 'done', 'alex'),
-(26, '2024-06-04 13:29:18', 14, 'to-do', 'alex'),
 (27, '2024-06-04 13:29:40', 15, 'to-do', 'alex'),
-(28, '2024-06-04 13:29:42', 14, 'doing', 'alex'),
-(29, '2024-06-04 13:29:43', 14, 'to-do', 'alex'),
-(30, '2024-06-04 13:29:46', 11, 'doing', 'alex'),
-(31, '2024-06-04 18:37:10', 14, 'doing', 'alex'),
-(32, '2024-06-04 18:37:11', 14, 'to-do', 'alex'),
-(33, '2024-06-04 18:42:08', 14, 'archived', 'alex'),
-(34, '2024-06-04 18:42:11', 14, 'done', 'alex');
+(30, '2024-06-04 13:29:46', 11, 'doing', 'alex');
 
 -- --------------------------------------------------------
 
@@ -97,7 +88,6 @@ INSERT INTO `task` (`id`, `titolo`, `descrizione`, `data_inizio`, `priorita`) VA
 (11, 'Pulizia PC', 'Pulire CPU - RAM - VENTOLE', '2024-06-29 13:09:00', 'bassa'),
 (12, 'Fare i compiti', 'Matematica, Informatica, TPSIT', '2024-06-07 13:22:00', 'bassa'),
 (13, 'Pulire casa', 'Lavare pavimenti e fare lavatrice', '2024-06-04 13:26:00', 'media'),
-(14, 'dasasdasdasdasd', 'Esame di stato', '2024-06-24 13:30:00', 'alta'),
 (15, 'Shopping', 'Fare nuovi acquisti', '2024-06-30 13:30:00', 'media');
 
 -- --------------------------------------------------------
@@ -118,6 +108,7 @@ CREATE TABLE `utenti` (
 --
 
 INSERT INTO `utenti` (`username`, `nome`, `cognome`, `password`) VALUES
+('admin', 'admin', 'admin', 'admin'),
 ('alex', 'alex', 'bagiacchi', 'alex');
 
 --
@@ -159,13 +150,13 @@ ALTER TABLE `utenti`
 -- AUTO_INCREMENT per la tabella `modifica`
 --
 ALTER TABLE `modifica`
-  MODIFY `tag` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `tag` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT per la tabella `task`
 --
 ALTER TABLE `task`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Limiti per le tabelle scaricate
